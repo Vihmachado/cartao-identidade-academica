@@ -13,10 +13,12 @@ A coordenação do curso decidiu modernizar a forma como os alunos se apresentam
 
 ## 📸 Demonstração
 
-![Dashboard Geral de Alunos](image_db13f0.jpg)
-![Registros Acadêmicos - Lista de Cartões](image_db13f6.jpg)
-![Detalhes do Cartão de Identidade](image_db142e.jpg)
-![Painel Administrativo Data_Core](image_db1411.png)
+![Dashboard Inicial de Alunos](img/img_capa_alunos.png)
+![Registros Acadêmicos - Lista de Alunos](img/img_registros_alunos.png)
+![Detalhes do Cartão de Identidade](img/img_detalhes_alunos.png)
+![Painel Administrativo Data_Core](img/img_admin.png)
+![Painel Adicionar Aluno](img/img_adicionar_aluno.png)
+![Painel Aluno Cadastrado](img/img_aluno_cadastrado.png)
 
 ---
 
