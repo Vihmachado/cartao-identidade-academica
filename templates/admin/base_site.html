@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/data-core-admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<div id="branding">
+    <div class="logo-icon">
+        <i class="ph ph-hexagon"></i>
+    </div>
+    <div class="site-name">
+        <span class="core">Data_Core</span>
+        <span class="admin">/ Admin</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block usertools %}
+{% if has_permission %}
+<div id="user-tools">
+    <div><strong>BEM-VINDO, {{ user.get_username|upper }}</strong></div>
+    <span class="user-tools-divider">|</span>
+    {% if site_url %}
+        <a href="{{ site_url }}" class="user-action-link"><i class="ph ph-globe"></i> Ver site</a>
+        <span class="user-tools-divider">|</span>
+    {% endif %}
+    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}" class="user-action-link"><i class="ph ph-book"></i> Documentação</a>
+            <span class="user-tools-divider">|</span>
+        {% endif %}
+    {% endif %}
+    {% if user.has_usable_password %}
+    <a href="{% url 'admin:password_change' %}" class="user-action-link"><i class="ph ph-key"></i> Alterar senha</a>
+    <span class="user-tools-divider">|</span>
+    {% endif %}
+    <a href="{% url 'admin:logout' %}" class="user-action-link"><i class="ph ph-sign-out"></i> Encerrar sessão</a>
+</div>
+{% endif %}
+{% endblock %}
