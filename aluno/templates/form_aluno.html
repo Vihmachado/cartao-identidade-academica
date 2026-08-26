@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} · Data_Core</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --text-2: #475569; --text-3: #64748b;
+            --line: #e2e8f0; --blue: #2563eb; --blue-2: #3b82f6; --purple: #7c3aed;
+            --radius-card: 20px; --radius-md: 12px;
+            --mono: "JetBrains Mono", monospace; --ui: "Inter", system-ui, sans-serif;
+            --shadow-card: 0 12px 34px rgba(15,23,42,.06);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+            font-family: var(--ui); display: flex; align-items: center; justify-content: center; padding: 24px;
+        }
+        .card {
+            width: min(560px, 100%); background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 32px;
+        }
+        .kicker { font: 600 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+        h1 { margin: 6px 0 24px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: var(--text); }
+        input[type="text"], textarea {
+            width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius-md);
+            font-family: var(--ui); font-size: 14px; color: var(--text); margin-bottom: 18px;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.12); }
+        textarea { resize: vertical; min-height: 110px; }
+        .actions { display: flex; gap: 10px; margin-top: 8px; }
+        button, .btn-ghost {
+            font-family: var(--ui); font-weight: 700; font-size: 14px; padding: 11px 20px;
+            border-radius: 999px; border: none; cursor: pointer; text-decoration: none; text-align: center;
+        }
+        button[type="submit"] { background: var(--blue); color: #fff; }
+        button[type="submit"]:hover { background: var(--blue-2); }
+        .btn-ghost { background: #f1f5f9; color: var(--text); }
+        .btn-ghost:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="kicker">DATA_CORE // ALUNOS</div>
+        <h1>{{ titulo }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" value="{{ aluno.nome|default:'' }}" required>
+
+            <label for="curso">Curso</label>
+            <input type="text" id="curso" name="curso" value="{{ aluno.curso|default:'' }}" required>
+
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio">{{ aluno.bio|default:'' }}</textarea>
+
+            <div class="actions">
+                <a class="btn-ghost" href="{% url 'listar_alunos' %}">Cancelar</a>
+                <button type="submit">Salvar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

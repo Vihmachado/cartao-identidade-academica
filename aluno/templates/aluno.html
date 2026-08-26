@@ -359,6 +359,36 @@
             font: 400 11px var(--mono);
         }
 
+        .new-student-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            color: #fff;
+            font: 700 13px var(--ui);
+            letter-spacing: -.01em;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(37,99,235,.2);
+            transition: transform .2s ease, box-shadow .2s ease;
+            flex: 0 0 auto;
+        }
+
+        .new-student-btn svg { width: 15px; height: 15px; }
+
+        .new-student-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(37,99,235,.28);
+        }
+
+        @media (max-width: 560px) {
+            .page-intro { flex-direction: column; align-items: stretch; }
+            .new-student-btn { justify-content: center; }
+        }
+
         /* GRID */
         .students-grid {
             display: grid;
@@ -1010,6 +1040,141 @@
             padding-right: 34px;
         }
 
+        /* AÇÕES DO MODAL (editar / excluir) */
+        .modal-actions {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            font: 700 13px var(--ui);
+            letter-spacing: -.01em;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .modal-btn svg { width: 15px; height: 15px; }
+
+        .modal-btn-edit:hover {
+            border-color: color-mix(in srgb, var(--accent-a, var(--blue)) 40%, var(--line));
+            color: var(--accent-a, var(--blue));
+            box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-a, var(--blue)) 12%, transparent);
+        }
+
+        .modal-btn-delete {
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+        .modal-btn-delete:hover {
+            background: #fef2f2;
+            box-shadow: 0 6px 16px rgba(220,38,38,.12);
+        }
+
+        .modal-btn-primary {
+            border: none;
+            background: linear-gradient(135deg, var(--accent-a, var(--blue)), var(--accent-b, var(--cyan)));
+            color: #fff;
+            box-shadow: 0 8px 18px color-mix(in srgb, var(--accent-b, var(--blue)) 25%, transparent);
+        }
+        .modal-btn-primary:hover { filter: brightness(1.06); }
+
+        .modal-btn-danger {
+            border: none;
+            background: #dc2626;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(220,38,38,.25);
+        }
+        .modal-btn-danger:hover { background: #b91c1c; }
+
+        .modal-btn-ghost {
+            background: var(--surface-soft);
+            border-color: var(--line);
+            color: var(--text-2);
+        }
+        .modal-btn-ghost:hover { background: var(--line-soft); }
+
+        /* FORMULÁRIO DE EDIÇÃO NO MODAL */
+        .modal-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-field { margin-bottom: 16px; }
+
+        .modal-field label {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--text-3);
+            font: 600 11px var(--mono);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .modal-field input[type="text"],
+        .modal-field textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-family: var(--ui);
+            font-size: 14px;
+            color: var(--text);
+            background: #fff;
+        }
+
+        .modal-field input[type="text"]:focus,
+        .modal-field textarea:focus {
+            outline: none;
+            border-color: var(--accent-a, var(--blue));
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-a, var(--blue)) 15%, transparent);
+        }
+
+        .modal-field textarea { resize: vertical; min-height: 110px; }
+
+        /* CONFIRMAÇÃO DE EXCLUSÃO NO MODAL */
+        .modal-delete-view { position: relative; z-index: 1; text-align: center; padding: 10px 0 4px; }
+
+        .modal-delete-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: #fef2f2;
+            color: #dc2626;
+            font-size: 24px;
+        }
+
+        .modal-delete-view h3 {
+            margin: 0 0 8px;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -.02em;
+        }
+
+        .modal-delete-view p {
+            margin: 0 0 22px;
+            color: var(--text-2);
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        .modal-delete-view p strong { color: var(--text); }
+
         @media (max-width: 480px) {
             .modal-panel { padding: 22px; }
             .modal-panel::after { left: 22px; right: 22px; }
@@ -1120,11 +1285,23 @@
                 <h2 class="page-title">Registros acadêmicos</h2>
                 <p class="page-hint">&gt; consulta de estudantes ativos na base</p>
             </div>
+            <button type="button" class="new-student-btn" id="newStudentBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                Novo Aluno
+            </button>
         </section>
 
         <main class="students-grid" id="studentsGrid">
             {% for aluno in alunos %}
-            <article class="student-card {% cycle 'card-accent-1' 'card-accent-2' 'card-accent-3' 'card-accent-4' %}">
+            <article class="student-card {% cycle 'card-accent-1' 'card-accent-2' 'card-accent-3' 'card-accent-4' %}"
+                      data-pk="{{ aluno.pk }}"
+                      data-nome="{{ aluno.nome }}"
+                      data-curso="{{ aluno.curso }}"
+                      data-bio="{{ aluno.bio }}"
+                      data-edit-url="{% url 'editar_aluno' aluno.pk %}"
+                      data-delete-url="{% url 'excluir_aluno' aluno.pk %}">
                 <span class="card-corner"></span>
 
                 <div class="card-top">
@@ -1225,32 +1402,167 @@
             <span class="modal-corner"></span>
             <button class="modal-close" id="modalClose" type="button" aria-label="Fechar">×</button>
 
-            <div class="modal-top">
-                <div class="avatar-hud" id="modalAvatarHud">
-                    <span class="avatar-ring"></span>
-                    <div class="avatar" id="modalAvatar"></div>
+            <!-- VISUALIZAÇÃO -->
+            <div id="modalViewContent">
+                <div class="modal-top">
+                    <div class="avatar-hud" id="modalAvatarHud">
+                        <span class="avatar-ring"></span>
+                        <div class="avatar" id="modalAvatar"></div>
+                    </div>
+                    <span class="id-badge" id="modalIdBadge"></span>
                 </div>
-                <span class="id-badge" id="modalIdBadge"></span>
+
+                <div class="student-name-row" style="position:relative; z-index:1;">
+                    <h2 class="student-name" id="modalName"></h2>
+                </div>
+
+                <div class="data-group" style="position:relative; z-index:1;">
+                    <span class="data-label">&gt; CURSO</span>
+                    <div class="course-tag" id="modalCourse"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="data-group mb-0" style="position:relative; z-index:1;">
+                    <span class="data-label">&gt; BIOGRAFIA</span>
+                    <div class="bio-container" id="modalBio"></div>
+                    <div class="card-stats" id="modalStats"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-delete" id="modalDeleteBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18"/>
+                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                            <path d="M10 11v6M14 11v6"/>
+                        </svg>
+                        Excluir
+                    </button>
+                    <button type="button" class="modal-btn modal-btn-edit" id="modalEditBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"/>
+                        </svg>
+                        Editar
+                    </button>
+                </div>
             </div>
 
-            <div class="student-name-row" style="position:relative; z-index:1;">
-                <h2 class="student-name" id="modalName"></h2>
-            </div>
+            <!-- EDIÇÃO -->
+            <form id="modalEditForm" class="modal-form" method="post" style="display:none;">
+                {% csrf_token %}
+                <div style="position:relative; z-index:1; margin-bottom: 18px;">
+                    <span class="data-label">&gt; EDITAR ALUNO</span>
+                </div>
 
-            <div class="data-group" style="position:relative; z-index:1;">
-                <span class="data-label">&gt; CURSO</span>
-                <div class="course-tag" id="modalCourse"></div>
-            </div>
+                <div class="modal-field">
+                    <label for="modalEditNome">Nome</label>
+                    <input type="text" id="modalEditNome" name="nome" required>
+                </div>
+                <div class="modal-field">
+                    <label for="modalEditCurso">Curso</label>
+                    <input type="text" id="modalEditCurso" name="curso" required>
+                </div>
+                <div class="modal-field">
+                    <label for="modalEditBio">Bio</label>
+                    <textarea id="modalEditBio" name="bio"></textarea>
+                </div>
 
-            <div class="divider"></div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-ghost" id="modalEditCancel">Cancelar</button>
+                    <button type="submit" class="modal-btn modal-btn-primary">Salvar alterações</button>
+                </div>
+            </form>
 
-            <div class="data-group mb-0" style="position:relative; z-index:1;">
-                <span class="data-label">&gt; BIOGRAFIA</span>
-                <div class="bio-container" id="modalBio"></div>
-                <div class="card-stats" id="modalStats"></div>
-            </div>
+            <!-- CONFIRMAÇÃO DE EXCLUSÃO -->
+            <form id="modalDeleteForm" method="post" style="display:none;">
+                {% csrf_token %}
+                <div class="modal-delete-view">
+                    <div class="modal-delete-icon">🗑️</div>
+                    <h3>Excluir aluno?</h3>
+                    <p>Tem certeza que deseja excluir <strong id="modalDeleteName"></strong>? Essa ação não pode ser desfeita.</p>
+                    <div class="modal-actions">
+                        <button type="button" class="modal-btn modal-btn-ghost" id="modalDeleteCancel">Cancelar</button>
+                        <button type="submit" class="modal-btn modal-btn-danger">Excluir</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+
+    <div class="modal-overlay" id="newStudentModal" aria-hidden="true">
+        <div class="modal-panel" id="newStudentPanel" role="dialog" aria-modal="true" aria-labelledby="newStudentLabel">
+            <span class="modal-corner"></span>
+            <button class="modal-close" id="newStudentClose" type="button" aria-label="Fechar">×</button>
+
+            <form id="newStudentForm" class="modal-form" method="post" action="{% url 'criar_aluno' %}">
+                {% csrf_token %}
+                <div style="position:relative; z-index:1; margin-bottom: 18px;">
+                    <span class="data-label" id="newStudentLabel">&gt; NOVO ALUNO</span>
+                </div>
+
+                <div class="modal-field">
+                    <label for="newStudentNome">Nome</label>
+                    <input type="text" id="newStudentNome" name="nome" required>
+                </div>
+                <div class="modal-field">
+                    <label for="newStudentCurso">Curso</label>
+                    <input type="text" id="newStudentCurso" name="curso" required>
+                </div>
+                <div class="modal-field">
+                    <label for="newStudentBio">Bio</label>
+                    <textarea id="newStudentBio" name="bio"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-ghost" id="newStudentCancel">Cancelar</button>
+                    <button type="submit" class="modal-btn modal-btn-primary">Cadastrar aluno</button>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var overlay = document.getElementById('newStudentModal');
+            var openBtn = document.getElementById('newStudentBtn');
+            var closeBtn = document.getElementById('newStudentClose');
+            var cancelBtn = document.getElementById('newStudentCancel');
+            var form = document.getElementById('newStudentForm');
+            var nomeInput = document.getElementById('newStudentNome');
+
+            var lastFocused = null;
+
+            function openModal() {
+                form.reset();
+                lastFocused = document.activeElement;
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+                nomeInput.focus();
+                document.addEventListener('keydown', onKeydown);
+            }
+
+            function closeModal() {
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.removeEventListener('keydown', onKeydown);
+                if (lastFocused) lastFocused.focus();
+            }
+
+            function onKeydown(e) {
+                if (e.key === 'Escape') closeModal();
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeModal();
+            });
+        })();
+    </script>
 
     <script>
         (function () {
@@ -1271,6 +1583,7 @@
             const panel = document.getElementById('modalPanel');
             const closeBtn = document.getElementById('modalClose');
 
+            const modalViewContent = document.getElementById('modalViewContent');
             const modalAvatar = document.getElementById('modalAvatar');
             const modalIdBadge = document.getElementById('modalIdBadge');
             const modalName = document.getElementById('modalName');
@@ -1278,9 +1591,31 @@
             const modalBio = document.getElementById('modalBio');
             const modalStats = document.getElementById('modalStats');
 
+            const modalEditBtn = document.getElementById('modalEditBtn');
+            const modalDeleteBtn = document.getElementById('modalDeleteBtn');
+
+            const modalEditForm = document.getElementById('modalEditForm');
+            const modalEditNome = document.getElementById('modalEditNome');
+            const modalEditCurso = document.getElementById('modalEditCurso');
+            const modalEditBio = document.getElementById('modalEditBio');
+            const modalEditCancel = document.getElementById('modalEditCancel');
+
+            const modalDeleteForm = document.getElementById('modalDeleteForm');
+            const modalDeleteName = document.getElementById('modalDeleteName');
+            const modalDeleteCancel = document.getElementById('modalDeleteCancel');
+
             let lastFocused = null;
+            let currentCard = null;
+
+            function showView(mode) {
+                modalViewContent.style.display = mode === 'view' ? '' : 'none';
+                modalEditForm.style.display = mode === 'edit' ? '' : 'none';
+                modalDeleteForm.style.display = mode === 'delete' ? '' : 'none';
+            }
 
             function openModal(card) {
+                currentCard = card;
+
                 const accentA = getComputedStyle(card).getPropertyValue('--accent-a').trim();
                 const accentB = getComputedStyle(card).getPropertyValue('--accent-b').trim();
                 panel.style.setProperty('--accent-a', accentA);
@@ -1293,6 +1628,8 @@
                 modalBio.innerHTML = card.querySelector('.bio-container').innerHTML;
                 modalStats.innerHTML = card.querySelector('.card-stats') ? card.querySelector('.card-stats').innerHTML : '';
 
+                showView('view');
+
                 lastFocused = document.activeElement;
                 overlay.classList.add('active');
                 overlay.setAttribute('aria-hidden', 'false');
@@ -1304,6 +1641,7 @@
                 overlay.classList.remove('active');
                 overlay.setAttribute('aria-hidden', 'true');
                 document.removeEventListener('keydown', onKeydown);
+                showView('view');
                 if (lastFocused) lastFocused.focus();
             }
 
@@ -1326,6 +1664,33 @@
                         openModal(card);
                     }
                 });
+            });
+
+            // Editar: preenche o formulário com os dados atuais do card e mostra o modo edição
+            modalEditBtn.addEventListener('click', function () {
+                if (!currentCard) return;
+                modalEditForm.action = currentCard.dataset.editUrl;
+                modalEditNome.value = currentCard.dataset.nome || '';
+                modalEditCurso.value = currentCard.dataset.curso || '';
+                modalEditBio.value = currentCard.dataset.bio || '';
+                showView('edit');
+                modalEditNome.focus();
+            });
+
+            modalEditCancel.addEventListener('click', function () {
+                showView('view');
+            });
+
+            // Excluir: mostra a confirmação com o nome do aluno e a action correta
+            modalDeleteBtn.addEventListener('click', function () {
+                if (!currentCard) return;
+                modalDeleteForm.action = currentCard.dataset.deleteUrl;
+                modalDeleteName.textContent = currentCard.dataset.nome || '';
+                showView('delete');
+            });
+
+            modalDeleteCancel.addEventListener('click', function () {
+                showView('view');
             });
 
             closeBtn.addEventListener('click', closeModal);
