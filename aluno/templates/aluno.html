@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data_Core / Alunos</title>
+    <title>Cadastros de alunos</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +33,7 @@
             --purple: #7c3aed;
             --magenta: #f028c8;
             --green: #22c55e;
+            --amber: #f59e0b;
 
             --radius-card: 20px;
             --radius-md: 12px;
@@ -389,6 +392,126 @@
             .new-student-btn { justify-content: center; }
         }
 
+        /* FILTERS */
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            gap: 14px;
+            margin: 0 0 24px;
+            padding: 18px 20px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255,255,255,.75);
+            box-shadow: 0 8px 24px rgba(15,23,42,.04);
+        }
+
+        .filter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .filter-field label {
+            color: var(--text-3);
+            font: 600 10px var(--mono);
+            letter-spacing: .08em;
+        }
+
+        .filter-search { flex: 1 1 240px; }
+        .filter-select { flex: 0 1 200px; }
+
+        .filter-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-input-wrap svg {
+            position: absolute;
+            left: 13px;
+            width: 15px;
+            height: 15px;
+            color: var(--text-3);
+            pointer-events: none;
+        }
+
+        .filters-bar input[type="text"],
+        .filters-bar input[type="search"],
+        .filters-bar select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            font-family: var(--ui);
+            font-size: 13.5px;
+            color: var(--text);
+            background: #fff;
+            appearance: none;
+        }
+
+        .filters-bar input[type="text"] { padding-left: 36px; }
+
+        .filters-bar input:focus,
+        .filters-bar select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+        }
+
+        .filter-select select {
+            background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%),
+                               linear-gradient(135deg, var(--text-3) 50%, transparent 50%);
+            background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+            padding-right: 32px;
+        }
+
+        .filters-actions {
+            display: flex;
+            gap: 10px;
+            flex: 0 0 auto;
+        }
+
+        .filter-submit {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            color: #fff;
+            font: 700 13px var(--ui);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .filter-clear {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: var(--text-2);
+            font: 600 13px var(--ui);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .filter-clear:hover { background: #e2e8f0; }
+
+        .results-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            color: var(--text-3);
+            font: 500 11px var(--mono);
+        }
+
+        @media (max-width: 700px) {
+            .filters-bar { flex-direction: column; align-items: stretch; }
+            .filter-search, .filter-select { flex: 1 1 auto; }
+        }
+
         /* GRID */
         .students-grid {
             display: grid;
@@ -632,6 +755,96 @@
         .id-badge b {
             color: var(--blue);
             font-weight: 700;
+        }
+
+        .card-top-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 7px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font: 700 10px var(--mono);
+            letter-spacing: .04em;
+            white-space: nowrap;
+        }
+        .status-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .status-badge.status-ativo { background: #dcfce7; color: #15803d; }
+        .status-badge.status-trancado { background: #fef3c7; color: #b45309; }
+        .status-badge.status-formado { background: #dbeafe; color: #1d4ed8; }
+
+        .bolsista-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #f3e8ff;
+            color: var(--purple);
+            font: 700 10px var(--mono);
+            letter-spacing: .04em;
+            white-space: nowrap;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: -6px 0 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            max-width: 100%;
+            padding: 6px 11px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: #fff;
+            color: var(--text-2);
+            font: 500 11px var(--mono);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .meta-chip svg {
+            width: 12px;
+            height: 12px;
+            flex: 0 0 12px;
+            color: var(--text-3);
+        }
+
+        .cadastro-line {
+            margin-top: 14px;
+            color: var(--text-3);
+            font: 500 10.5px var(--mono);
+            position: relative;
+            z-index: 1;
         }
 
         .student-name-row {
@@ -1124,6 +1337,8 @@
         }
 
         .modal-field input[type="text"],
+        .modal-field input[type="number"],
+        .modal-field input[type="date"],
         .modal-field textarea {
             width: 100%;
             padding: 11px 14px;
@@ -1133,9 +1348,15 @@
             font-size: 14px;
             color: var(--text);
             background: #fff;
+            height: 44px;
+            appearance: none;
         }
 
+        .modal-field textarea { height: auto; }
+
         .modal-field input[type="text"]:focus,
+        .modal-field input[type="number"]:focus,
+        .modal-field input[type="date"]:focus,
         .modal-field textarea:focus {
             outline: none;
             border-color: var(--accent-a, var(--blue));
@@ -1143,6 +1364,65 @@
         }
 
         .modal-field textarea { resize: vertical; min-height: 110px; }
+
+        .modal-field select {
+            width: 100%;
+            height: 44px;
+            padding: 11px 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-family: var(--ui);
+            font-size: 14px;
+            color: var(--text);
+            background: #fff;
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, var(--text-3) 50%),
+                               linear-gradient(135deg, var(--text-3) 50%, transparent 50%);
+            background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        .modal-field select:focus {
+            outline: none;
+            border-color: var(--accent-a, var(--blue));
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-a, var(--blue)) 15%, transparent);
+        }
+
+        .modal-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .modal-check {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            height: 44px;
+            padding: 0 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .modal-check input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-a, var(--blue));
+        }
+
+        .modal-check label {
+            margin: 0;
+            text-transform: none;
+            letter-spacing: 0;
+            font: 500 13px var(--ui);
+            color: var(--text);
+        }
+
+        @media (max-width: 480px) {
+            .modal-grid-2 { grid-template-columns: 1fr; }
+        }
 
         /* CONFIRMAÇÃO DE EXCLUSÃO NO MODAL */
         .modal-delete-view { position: relative; z-index: 1; text-align: center; padding: 10px 0 4px; }
@@ -1188,8 +1468,7 @@
         <span class="cover-blob cover-blob-b" aria-hidden="true"></span>
 
         <div class="cover-inner">
-            <span class="cover-kicker">DASHBOARD // ALUNOS</span>
-
+            
             <div class="cover-avatar-wrap">
                 <span class="cover-avatar-ring" aria-hidden="true"></span>
                 <div class="cover-avatar" aria-hidden="true">VM</div>
@@ -1261,7 +1540,7 @@
                     </span>
                     <div class="cover-chip-copy">
                         <span class="cover-chip-label">Alunos cadastrados</span>
-                        <span class="cover-chip-value" id="totalAlunosCover">{{ alunos|length|stringformat:"02d" }}</span>
+                        <span class="cover-chip-value" id="totalAlunosCover">{{ total_geral|stringformat:"02d" }}</span>
                     </div>
                 </div>
             </div>
@@ -1281,9 +1560,9 @@
 
         <section class="page-intro">
             <div>
-                <div class="page-kicker">DASHBOARD // DIRECTORY</div>
+                <div class="page-kicker">DASHBOARD</div>
                 <h2 class="page-title">Registros acadêmicos</h2>
-                <p class="page-hint">&gt; consulta de estudantes ativos na base</p>
+                <span class="results-count">&gt; {{ alunos|length }} resultado{{ alunos|length|pluralize }} de {{ total_geral }} cadastrado{{ total_geral|pluralize }}</span>
             </div>
             <button type="button" class="new-student-btn" id="newStudentBtn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
@@ -1293,12 +1572,59 @@
             </button>
         </section>
 
+        <form class="filters-bar" method="get" action="{% url 'listar_alunos' %}">
+            <div class="filter-field filter-search">
+                <label for="filtroBusca">&gt; BUSCAR</label>
+                <div class="filter-input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                    <input type="text" id="filtroBusca" name="q" placeholder="Nome ou matrícula..." value="{{ filtro_q }}">
+                </div>
+            </div>
+
+            <div class="filter-field filter-select">
+                <label for="filtroCurso">&gt; CURSO</label>
+                <select id="filtroCurso" name="curso">
+                    <option value="">Todos os cursos</option>
+                    {% for curso_opcao in cursos_disponiveis %}
+                    <option value="{{ curso_opcao }}" {% if curso_opcao == filtro_curso %}selected{% endif %}>{{ curso_opcao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-field filter-select">
+                <label for="filtroStatus">&gt; STATUS</label>
+                <select id="filtroStatus" name="status">
+                    <option value="">Todos os status</option>
+                    {% for valor, rotulo in status_choices %}
+                    <option value="{{ valor }}" {% if valor == filtro_status %}selected{% endif %}>{{ rotulo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filters-actions">
+                <button type="submit" class="filter-submit">Filtrar</button>
+                {% if filtros_ativos %}
+                <a href="{% url 'listar_alunos' %}" class="filter-clear">Limpar</a>
+                {% endif %}
+            </div>
+        </form>
+
         <main class="students-grid" id="studentsGrid">
             {% for aluno in alunos %}
             <article class="student-card {% cycle 'card-accent-1' 'card-accent-2' 'card-accent-3' 'card-accent-4' %}"
                       data-pk="{{ aluno.pk }}"
                       data-nome="{{ aluno.nome }}"
+                      data-matricula="{{ aluno.matricula }}"
+                      data-email="{{ aluno.email }}"
+                      data-cpf="{{ aluno.cpf }}"
                       data-curso="{{ aluno.curso }}"
+                      data-semestre="{{ aluno.semestre }}"
+                      data-nascimento="{{ aluno.data_nascimento|date:'Y-m-d' }}"
+                      data-status="{{ aluno.status }}"
+                      data-bolsista="{% if aluno.bolsista %}true{% else %}false{% endif %}"
                       data-bio="{{ aluno.bio }}"
                       data-edit-url="{% url 'editar_aluno' aluno.pk %}"
                       data-delete-url="{% url 'excluir_aluno' aluno.pk %}">
@@ -1309,12 +1635,43 @@
                         <span class="avatar-ring"></span>
                         <div class="avatar avatar-initial">{{ aluno.iniciais }}</div>
                     </div>
-                    <span class="id-badge">ID <b>#{{ aluno.pk|stringformat:"05d" }}</b></span>
+                    <div class="card-top-right">
+                        <span class="id-badge">ID <b>#{{ aluno.pk|stringformat:"05d" }}</b></span>
+                        <div class="badge-row">
+                            <span class="status-badge status-{{ aluno.status }}">{{ aluno.get_status_display }}</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="student-name-row">
                     <h2 class="student-name">{{ aluno.nome }}</h2>
                     <span class="student-arrow">›</span>
+                </div>
+
+                <div class="meta-row">
+                    <span class="meta-chip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2.5"/>
+                            <path d="M6 15h4M6 11.5h2"/>
+                            <circle cx="15.5" cy="11.5" r="1.7"/>
+                        </svg>
+                        {{ aluno.matricula|default:"Matrícula não informada" }}
+                    </span>
+                    <span class="meta-chip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+                            <path d="m3 6.5 9 6.2 9-6.2"/>
+                        </svg>
+                        {{ aluno.email|default:"E-mail não informado" }}
+                    </span>
+                    <span class="meta-chip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="16" rx="2"/>
+                            <path d="M7 9h6M7 13h4"/>
+                            <circle cx="16.5" cy="15.5" r="2.2"/>
+                        </svg>
+                        {{ aluno.cpf|default:"CPF não informado" }}
+                    </span>
                 </div>
 
                 <div class="data-group">
@@ -1327,6 +1684,43 @@
                             </svg>
                         </span>
                         {{ aluno.curso }}
+                    </div>
+                </div>
+
+                <div class="card-stats">
+                    <div class="stat-chip">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19V5M4 5h13l3 4-3 4H4"/>
+                            </svg>
+                        </span>
+                        <div class="stat-copy">
+                            <span class="stat-label">Semestre</span>
+                            <span class="stat-value">{{ aluno.semestre }}º</span>
+                        </div>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7L12 3Z"/>
+                            </svg>
+                        </span>
+                        <div class="stat-copy">
+                            <span class="stat-label">Bolsista</span>
+                            <span class="stat-value">{% if aluno.bolsista %}Sim{% else %}Não{% endif %}</span>
+                        </div>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4.5" width="18" height="16" rx="2"/>
+                                <path d="M8 3v3M16 3v3M3 9.5h18"/>
+                            </svg>
+                        </span>
+                        <div class="stat-copy">
+                            <span class="stat-label">Nascimento</span>
+                            <span class="stat-value" style="font-size:12.5px;">{{ aluno.data_nascimento|date:"d/m/Y"|default:"—" }}</span>
+                        </div>
                     </div>
                 </div>
 
@@ -1354,6 +1748,8 @@
                         {% endif %}
                     </div>
                 </div>
+
+                <p class="cadastro-line">&gt; Cadastrado em {{ aluno.criado_em|date:"d/m/Y" }}</p>
             </article>
             {% empty %}
             <div class="empty-state">
@@ -1364,6 +1760,16 @@
                         <path d="M19 8h4M21 6v4" stroke-linecap="round"/>
                     </svg>
                 </span>
+                {% if filtros_ativos %}
+                <h3>Nenhum resultado para esse filtro</h3>
+                <p>&gt; Tente ajustar a busca, o curso ou o status selecionado.</p>
+                <a href="{% url 'listar_alunos' %}">
+                    Limpar filtros
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                        <path d="m8 6 6 6-6 6M15 18h4"/>
+                    </svg>
+                </a>
+                {% else %}
                 <h3>Nenhum aluno cadastrado ainda</h3>
                 <p>&gt; Assim que um registro for salvo no admin, o card do aluno aparece aqui automaticamente.</p>
                 <a href="/admin/aluno/aluno/add/">
@@ -1372,30 +1778,12 @@
                         <path d="M12 5v14M5 12h14"/>
                     </svg>
                 </a>
+                {% endif %}
             </div>
             {% endfor %}
         </main>
     </div>
 
-    <aside class="floating-tools" aria-label="Ferramentas">
-        <div class="tool">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z"/>
-                <path d="M8 9 12 11l4-2M12 11v7"/>
-            </svg>
-        </div>
-        <div class="tool">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="7" cy="7" r="2"/><circle cx="17" cy="7" r="2"/>
-                <circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
-            </svg>
-        </div>
-        <div class="tool">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m8 6 6 6-6 6M15 18h4"/>
-            </svg>
-        </div>
-    </aside>
 
     <div class="modal-overlay" id="studentModal" aria-hidden="true">
         <div class="modal-panel" id="modalPanel" role="dialog" aria-modal="true" aria-labelledby="modalName">
@@ -1409,25 +1797,33 @@
                         <span class="avatar-ring"></span>
                         <div class="avatar" id="modalAvatar"></div>
                     </div>
-                    <span class="id-badge" id="modalIdBadge"></span>
+                    <div class="card-top-right">
+                        <span class="id-badge" id="modalIdBadge"></span>
+                        <div class="badge-row" id="modalBadges"></div>
+                    </div>
                 </div>
 
                 <div class="student-name-row" style="position:relative; z-index:1;">
                     <h2 class="student-name" id="modalName"></h2>
                 </div>
 
+                <div class="meta-row" id="modalMeta"></div>
+
                 <div class="data-group" style="position:relative; z-index:1;">
                     <span class="data-label">&gt; CURSO</span>
                     <div class="course-tag" id="modalCourse"></div>
                 </div>
+
+                <div class="card-stats" id="modalStats"></div>
 
                 <div class="divider"></div>
 
                 <div class="data-group mb-0" style="position:relative; z-index:1;">
                     <span class="data-label">&gt; BIOGRAFIA</span>
                     <div class="bio-container" id="modalBio"></div>
-                    <div class="card-stats" id="modalStats"></div>
                 </div>
+
+                <p class="cadastro-line" id="modalCadastro"></p>
 
                 <div class="modal-actions">
                     <button type="button" class="modal-btn modal-btn-delete" id="modalDeleteBtn">
@@ -1460,10 +1856,58 @@
                     <label for="modalEditNome">Nome</label>
                     <input type="text" id="modalEditNome" name="nome" required>
                 </div>
-                <div class="modal-field">
-                    <label for="modalEditCurso">Curso</label>
-                    <input type="text" id="modalEditCurso" name="curso" required>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="modalEditMatricula">Matrícula</label>
+                        <input type="text" id="modalEditMatricula" name="matricula">
+                    </div>
+                    <div class="modal-field">
+                        <label for="modalEditEmail">E-mail</label>
+                        <input type="text" id="modalEditEmail" name="email">
+                    </div>
                 </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="modalEditCurso">Curso</label>
+                        <input type="text" id="modalEditCurso" name="curso" required>
+                    </div>
+                    <div class="modal-field">
+                        <label for="modalEditSemestre">Semestre</label>
+                        <input type="number" id="modalEditSemestre" name="semestre" min="1" max="20" required>
+                    </div>
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="modalEditCpf">CPF</label>
+                        <input type="text" id="modalEditCpf" name="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                    <div class="modal-field">
+                        <label for="modalEditNascimento">Data de nascimento</label>
+                        <input type="date" id="modalEditNascimento" name="data_nascimento">
+                    </div>
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="modalEditStatus">Status</label>
+                        <select id="modalEditStatus" name="status">
+                            {% for valor, rotulo in status_choices %}
+                            <option value="{{ valor }}">{{ rotulo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-field">
+                        <label>Bolsista</label>
+                        <div class="modal-check">
+                            <input type="checkbox" id="modalEditBolsista" name="bolsista">
+                            <label for="modalEditBolsista">Aluno bolsista</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-field">
                     <label for="modalEditBio">Bio</label>
                     <textarea id="modalEditBio" name="bio"></textarea>
@@ -1506,10 +1950,58 @@
                     <label for="newStudentNome">Nome</label>
                     <input type="text" id="newStudentNome" name="nome" required>
                 </div>
-                <div class="modal-field">
-                    <label for="newStudentCurso">Curso</label>
-                    <input type="text" id="newStudentCurso" name="curso" required>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="newStudentMatricula">Matrícula</label>
+                        <input type="text" id="newStudentMatricula" name="matricula">
+                    </div>
+                    <div class="modal-field">
+                        <label for="newStudentEmail">E-mail</label>
+                        <input type="text" id="newStudentEmail" name="email">
+                    </div>
                 </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="newStudentCurso">Curso</label>
+                        <input type="text" id="newStudentCurso" name="curso" required>
+                    </div>
+                    <div class="modal-field">
+                        <label for="newStudentSemestre">Semestre</label>
+                        <input type="number" id="newStudentSemestre" name="semestre" min="1" max="20" value="1" required>
+                    </div>
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="newStudentCpf">CPF</label>
+                        <input type="text" id="newStudentCpf" name="cpf" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+                    <div class="modal-field">
+                        <label for="newStudentNascimento">Data de nascimento</label>
+                        <input type="date" id="newStudentNascimento" name="data_nascimento">
+                    </div>
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="modal-field">
+                        <label for="newStudentStatus">Status</label>
+                        <select id="newStudentStatus" name="status">
+                            {% for valor, rotulo in status_choices %}
+                            <option value="{{ valor }}">{{ rotulo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-field">
+                        <label>Bolsista</label>
+                        <div class="modal-check">
+                            <input type="checkbox" id="newStudentBolsista" name="bolsista">
+                            <label for="newStudentBolsista">Aluno bolsista</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-field">
                     <label for="newStudentBio">Bio</label>
                     <textarea id="newStudentBio" name="bio"></textarea>
@@ -1586,17 +2078,27 @@
             const modalViewContent = document.getElementById('modalViewContent');
             const modalAvatar = document.getElementById('modalAvatar');
             const modalIdBadge = document.getElementById('modalIdBadge');
+            const modalBadges = document.getElementById('modalBadges');
             const modalName = document.getElementById('modalName');
+            const modalMeta = document.getElementById('modalMeta');
             const modalCourse = document.getElementById('modalCourse');
             const modalBio = document.getElementById('modalBio');
             const modalStats = document.getElementById('modalStats');
+            const modalCadastro = document.getElementById('modalCadastro');
 
             const modalEditBtn = document.getElementById('modalEditBtn');
             const modalDeleteBtn = document.getElementById('modalDeleteBtn');
 
             const modalEditForm = document.getElementById('modalEditForm');
             const modalEditNome = document.getElementById('modalEditNome');
+            const modalEditMatricula = document.getElementById('modalEditMatricula');
+            const modalEditEmail = document.getElementById('modalEditEmail');
             const modalEditCurso = document.getElementById('modalEditCurso');
+            const modalEditSemestre = document.getElementById('modalEditSemestre');
+            const modalEditCpf = document.getElementById('modalEditCpf');
+            const modalEditNascimento = document.getElementById('modalEditNascimento');
+            const modalEditStatus = document.getElementById('modalEditStatus');
+            const modalEditBolsista = document.getElementById('modalEditBolsista');
             const modalEditBio = document.getElementById('modalEditBio');
             const modalEditCancel = document.getElementById('modalEditCancel');
 
@@ -1623,10 +2125,13 @@
 
                 modalAvatar.textContent = card.querySelector('.avatar').textContent.trim();
                 modalIdBadge.innerHTML = card.querySelector('.id-badge').innerHTML;
+                modalBadges.innerHTML = card.querySelector('.badge-row') ? card.querySelector('.badge-row').innerHTML : '';
                 modalName.textContent = card.querySelector('.student-name').textContent.trim();
+                modalMeta.innerHTML = card.querySelector('.meta-row') ? card.querySelector('.meta-row').innerHTML : '';
                 modalCourse.innerHTML = card.querySelector('.course-tag').innerHTML;
                 modalBio.innerHTML = card.querySelector('.bio-container').innerHTML;
                 modalStats.innerHTML = card.querySelector('.card-stats') ? card.querySelector('.card-stats').innerHTML : '';
+                modalCadastro.textContent = card.querySelector('.cadastro-line') ? card.querySelector('.cadastro-line').textContent.trim() : '';
 
                 showView('view');
 
@@ -1671,7 +2176,14 @@
                 if (!currentCard) return;
                 modalEditForm.action = currentCard.dataset.editUrl;
                 modalEditNome.value = currentCard.dataset.nome || '';
+                modalEditMatricula.value = currentCard.dataset.matricula || '';
+                modalEditEmail.value = currentCard.dataset.email || '';
                 modalEditCurso.value = currentCard.dataset.curso || '';
+                modalEditSemestre.value = currentCard.dataset.semestre || '1';
+                modalEditCpf.value = currentCard.dataset.cpf || '';
+                modalEditNascimento.value = currentCard.dataset.nascimento || '';
+                modalEditStatus.value = currentCard.dataset.status || 'ativo';
+                modalEditBolsista.checked = currentCard.dataset.bolsista === 'true';
                 modalEditBio.value = currentCard.dataset.bio || '';
                 showView('edit');
                 modalEditNome.focus();
