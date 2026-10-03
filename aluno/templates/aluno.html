@@ -1280,6 +1280,7 @@
         }
 
         .modal-btn svg { width: 15px; height: 15px; }
+        a.modal-btn { text-decoration: none; }
 
         .modal-btn-edit:hover {
             border-color: color-mix(in srgb, var(--accent-a, var(--blue)) 40%, var(--line));
@@ -1462,7 +1463,8 @@
     </style>
 </head>
 
-<body>
+<body class="com-sb">
+{% include "_sidebar.html" with sb_ativo="alunos" %}
     <header class="cover-hero">
         <span class="cover-blob cover-blob-a" aria-hidden="true"></span>
         <span class="cover-blob cover-blob-b" aria-hidden="true"></span>
@@ -1627,7 +1629,8 @@
                       data-bolsista="{% if aluno.bolsista %}true{% else %}false{% endif %}"
                       data-bio="{{ aluno.bio }}"
                       data-edit-url="{% url 'editar_aluno' aluno.pk %}"
-                      data-delete-url="{% url 'excluir_aluno' aluno.pk %}">
+                      data-delete-url="{% url 'excluir_aluno' aluno.pk %}"
+                      data-dashboard-url="{% url 'dashboard_aluno_pk' aluno.pk %}">
                 <span class="card-corner"></span>
 
                 <div class="card-top">
@@ -1842,6 +1845,13 @@
                         </svg>
                         Editar
                     </button>
+                    <a class="modal-btn modal-btn-primary" id="modalDashBtn" href="#">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/>
+                            <rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>
+                        </svg>
+                        Dashboard
+                    </a>
                 </div>
             </div>
 
@@ -2117,6 +2127,8 @@
 
             function openModal(card) {
                 currentCard = card;
+                const dashBtn = document.getElementById('modalDashBtn');
+                if (dashBtn) dashBtn.href = card.dataset.dashboardUrl || '#';
 
                 const accentA = getComputedStyle(card).getPropertyValue('--accent-a').trim();
                 const accentB = getComputedStyle(card).getPropertyValue('--accent-b').trim();

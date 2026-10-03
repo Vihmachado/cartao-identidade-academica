@@ -1,0 +1,84 @@
+<style>
+    :root { --sb-w: 264px; }
+    body.com-sb { padding-left: var(--sb-w); }
+
+    .sb { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sb-w); z-index: 40; display: flex; flex-direction: column; gap: 28px; padding: 26px 18px; background: #fff; border-right: 1px solid #e4e9f1; font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.5; color: #3d4a63; }
+    .sb a { color: inherit; text-decoration: none; }
+    .sb a:focus-visible { outline: 2px solid #24408e; outline-offset: 2px; border-radius: 10px; }
+    .sb-marca { display: flex; align-items: center; gap: 12px; padding: 0 8px; }
+    .sb-logo { flex: none; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; color: #fff; background: linear-gradient(135deg, #3b62c9, #24408e); }
+    .sb-logo svg { width: 20px; height: 20px; }
+    .sb-marca strong { display: block; color: #14213d; font-weight: 600; line-height: 1.2; }
+    .sb-marca small { color: #6b768c; font-size: 12.5px; }
+    .sb-rotulo { margin: 0 8px 8px; font-size: 12px; font-weight: 500; color: #8a94a8; }
+    .sb-menu { display: grid; gap: 4px; }
+    .sb-menu a { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; color: #6b768c; font-weight: 500; transition: background .15s, color .15s; }
+    .sb-menu a svg { width: 18px; height: 18px; flex: none; }
+    .sb-menu a:hover { background: #eef1f6; color: #14213d; }
+    .sb-menu a.ativo { background: #eef2fb; color: #24408e; }
+
+    .sb-aluno { margin-top: auto; padding: 18px 16px; border-radius: 18px; color: #fff; background: linear-gradient(160deg, #24408e 0%, #3b62c9 100%); }
+    .sb-aluno .topo { display: flex; align-items: center; gap: 12px; }
+    .sb-aluno .av { flex: none; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.16); border: 1.5px solid rgba(255,255,255,.4); font: 600 15px "Source Serif 4", Georgia, serif; }
+    .sb-aluno .nome { font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+    .sb-aluno .sub { font-size: 12.5px; color: rgba(255,255,255,.78); line-height: 1.3; }
+    .sb-aluno .trocar { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; padding: 9px 12px; border-radius: 10px; background: rgba(255,255,255,.14); font-size: 13px; font-weight: 500; transition: background .15s; }
+    .sb-aluno .trocar:hover { background: rgba(255,255,255,.24); }
+    .sb-aluno .trocar svg { width: 15px; height: 15px; }
+
+    @media (max-width: 860px) {
+        body.com-sb { padding-left: 0; }
+        .sb { position: static; width: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 14px 20px; border-right: 0; border-bottom: 1px solid #e4e9f1; }
+        .sb-rotulo, .sb-marca small, .sb-aluno .sub, .sb-aluno .trocar span { display: none; }
+        .sb-menu { display: flex; margin-left: auto; }
+        .sb-aluno { margin-top: 0; padding: 8px 12px; order: 3; flex: 1 1 100%; }
+        .sb-aluno .topo { gap: 10px; }
+        .sb-aluno .av { width: 32px; height: 32px; font-size: 12px; }
+        .sb-aluno .trocar { margin: 0 0 0 auto; padding: 7px 10px; }
+        .sb-aluno { display: flex; align-items: center; }
+        .sb-aluno .topo { flex: 1; }
+    }
+</style>
+
+<aside class="sb" aria-label="Menu principal">
+    <div class="sb-marca">
+        <span class="sb-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
+        <div><strong>Sistema Acadêmico</strong><small>Gestão de alunos</small></div>
+    </div>
+
+    <nav>
+        <p class="sb-rotulo">Menu</p>
+        <div class="sb-menu">
+            <a href="{% url 'listar_alunos' %}"{% if sb_ativo == 'alunos' %} class="ativo" aria-current="page"{% endif %}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+                Alunos
+            </a>
+            <a href="{% url 'dashboard_aluno' %}{% if sb_aluno %}?escolher=1{% endif %}"{% if sb_ativo == 'dashboard' %} class="ativo" aria-current="page"{% endif %}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+                Dashboard
+            </a>
+            {% if url_calendario %}
+            <a href="{{ url_calendario }}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Calendário
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if sb_aluno %}
+    <div class="sb-aluno">
+        <div class="topo">
+            <span class="av" aria-hidden="true">{{ sb_iniciais }}</span>
+            <div>
+                <div class="nome">{{ sb_aluno.nome }}</div>
+                <div class="sub">{{ sb_aluno.curso }} · {{ sb_aluno.semestre }}º sem.</div>
+            </div>
+        </div>
+        <a class="trocar" href="{% url 'dashboard_aluno' %}?escolher=1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M21 7H9M7 21l-4-4 4-4M3 17h12"/></svg>
+            <span>Trocar aluno</span>
+        </a>
+    </div>
+    {% endif %}
+</aside>
