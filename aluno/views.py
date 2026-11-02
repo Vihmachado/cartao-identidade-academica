@@ -159,8 +159,6 @@ TIPOS_EVENTO = {
 # (FEPI_PORTAL_ALUNO_URL e FEPI_ENSINO_DIGITAL_URL). Até lá, o atalho aponta
 # para o site institucional.
 # ---------------------------------------------------------------------------
-FEPI_URL_PADRAO = "https://www.fepi.br"
-
 
 def _grupos_acesso_rapido():
     return [
@@ -181,9 +179,9 @@ def _grupos_acesso_rapido():
             "titulo": "Portais acadêmicos",
             "itens": [
                 {"nome": "Portal do Aluno FEPI", "icone": "portal", "cor": "fepi",
-                 "url": getattr(settings, "FEPI_PORTAL_ALUNO_URL", FEPI_URL_PADRAO)},
+                 "url": getattr(settings, "FEPI_PORTAL_ALUNO_URL")},
                 {"nome": "Ensino Digital FEPI", "icone": "digital", "cor": "fepi",
-                 "url": getattr(settings, "FEPI_ENSINO_DIGITAL_URL", FEPI_URL_PADRAO)},
+                 "url": getattr(settings, "FEPI_ENSINO_DIGITAL_URL")},
             ],
         },
     ]

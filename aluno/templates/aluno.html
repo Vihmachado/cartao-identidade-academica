@@ -1465,96 +1465,6 @@
 
 <body class="com-sb">
 {% include "_sidebar.html" with sb_ativo="alunos" %}
-    <header class="cover-hero">
-        <span class="cover-blob cover-blob-a" aria-hidden="true"></span>
-        <span class="cover-blob cover-blob-b" aria-hidden="true"></span>
-
-        <div class="cover-inner">
-            
-            <div class="cover-avatar-wrap">
-                <span class="cover-avatar-ring" aria-hidden="true"></span>
-                <div class="cover-avatar" aria-hidden="true">VM</div>
-
-                <span class="cover-floaty floaty-1" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/>
-                    </svg>
-                </span>
-                <span class="cover-floaty floaty-2" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <ellipse cx="12" cy="6" rx="8" ry="3"/>
-                        <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
-                        <path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
-                    </svg>
-                </span>
-                <span class="cover-floaty floaty-3" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 9 12 4l10 5-10 5-10-5Z"/>
-                        <path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>
-                    </svg>
-                </span>
-                <span class="cover-floaty floaty-4" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/>
-                    </svg>
-                </span>
-            </div>
-
-            <h1 class="cover-title">Vitória Machado Silva</h1>
-            <p class="cover-sub">&gt; Painel da disciplina em execução <span class="cursor">●</span></p>
-
-            <div class="cover-chip-row">
-                <div class="cover-chip chip-subject">
-                    <span class="cover-chip-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 5c3-1.5 6-1.5 8 0v14c-2-1.5-5-1.5-8 0V5Z"/>
-                            <path d="M20 5c-3-1.5-6-1.5-8 0v14c2-1.5 5-1.5 8 0V5Z"/>
-                        </svg>
-                    </span>
-                    <div class="cover-chip-copy">
-                        <span class="cover-chip-label">Disciplina</span>
-                        <span class="cover-chip-value">Desenvolvimento Back-end</span>
-                    </div>
-                </div>
-
-                <div class="cover-chip chip-course">
-                    <span class="cover-chip-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 9 12 4l10 5-10 5-10-5Z"/>
-                            <path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>
-                        </svg>
-                    </span>
-                    <div class="cover-chip-copy">
-                        <span class="cover-chip-label">Curso</span>
-                        <span class="cover-chip-value">Sistemas de Informação</span>
-                    </div>
-                </div>
-
-                <div class="cover-chip chip-total">
-                    <span class="cover-chip-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="9" cy="8" r="3.2"/>
-                            <path d="M2.5 19c1-3.3 3.6-5 6.5-5s5.5 1.7 6.5 5"/>
-                            <path d="M16 4.2a3.2 3.2 0 0 1 0 6.2"/>
-                            <path d="M18.5 14.3c2 .5 3.4 1.9 4 4.7"/>
-                        </svg>
-                    </span>
-                    <div class="cover-chip-copy">
-                        <span class="cover-chip-label">Alunos cadastrados</span>
-                        <span class="cover-chip-value" id="totalAlunosCover">{{ total_geral|stringformat:"02d" }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <a href="#studentsGrid" class="cover-cta">
-                Ver alunos
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-                    <path d="m8 6 6 6-6 6"/>
-                </svg>
-            </a>
-        </div>
-    </header>
 
     <div class="shell">
 
@@ -1562,7 +1472,7 @@
 
         <section class="page-intro">
             <div>
-                <div class="page-kicker">DASHBOARD</div>
+                <div class="page-kicker">ALUNOS</div>
                 <h2 class="page-title">Registros acadêmicos</h2>
                 <span class="results-count">&gt; {{ alunos|length }} resultado{{ alunos|length|pluralize }} de {{ total_geral }} cadastrado{{ total_geral|pluralize }}</span>
             </div>

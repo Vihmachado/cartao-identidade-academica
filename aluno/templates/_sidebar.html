@@ -16,6 +16,10 @@
     .sb-menu a svg { width: 18px; height: 18px; flex: none; }
     .sb-menu a:hover { background: #eef1f6; color: #14213d; }
     .sb-menu a.ativo { background: #eef2fb; color: #24408e; }
+    .sb-sair { margin: 0 8px; }
+    .sb-sair button { width: 100%; padding: 10px 14px; border: 0; border-radius: 12px; background: transparent; color: #6b768c; font: inherit; text-align: left; cursor: pointer; }
+    .sb-sair button:hover { background: #eef1f6; color: #14213d; }
+    .sb-sair button:focus-visible { outline: 2px solid #24408e; outline-offset: 2px; }
 
     .sb-aluno { margin-top: auto; padding: 18px 16px; border-radius: 18px; color: #fff; background: linear-gradient(160deg, #24408e 0%, #3b62c9 100%); }
     .sb-aluno .topo { display: flex; align-items: center; gap: 12px; }
@@ -65,6 +69,11 @@
             {% endif %}
         </div>
     </nav>
+
+    <form class="sb-sair" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Sair</button>
+    </form>
 
     {% if sb_aluno %}
     <div class="sb-aluno">

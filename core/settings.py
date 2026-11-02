@@ -116,3 +116,11 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+FEPI_PORTAL_ALUNO_URL = 'https://portal.fepi.br/FrameHtml/web/app/edu/PortalEducacional/login/?_gl=1*1fvrwqw*_ga*ODczOTUxNTQ3LjE3Njk0MjkyNDI.*_ga_Y03P1BTGDM*czE3Njk0MzI4NDQkbzIkZzEkdDE3Njk0MzM1MjAkajYwJGwwJGgw'
+
+FEPI_ENSINO_DIGITAL_URL = 'https://fepi.grupoa.education/plataforma/auth/signin'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'listar_alunos'
+LOGOUT_REDIRECT_URL = 'login'

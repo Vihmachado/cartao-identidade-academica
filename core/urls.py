@@ -15,11 +15,40 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.views.debug import default_urlconf
+from django.contrib.auth import views as auth_views
+from django.urls import include, path
+from django.views.generic import RedirectView
+
+from aluno.auth_views import RememberMeLoginView
 
 urlpatterns = [
-    path('', default_urlconf, name='home'),
+    path('', RedirectView.as_view(pattern_name='login', permanent=False), name='home'),
+    path(
+        'login/',
+        RememberMeLoginView.as_view(template_name='login.html'),
+        name='login',
+    ),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path(
+        'password-reset/',
+        auth_views.PasswordResetView.as_view(),
+        name='password_reset',
+    ),
+    path(
+        'password-reset/done/',
+        auth_views.PasswordResetDoneView.as_view(),
+        name='password_reset_done',
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm',
+    ),
+    path(
+        'reset/done/',
+        auth_views.PasswordResetCompleteView.as_view(),
+        name='password_reset_complete',
+    ),
     path('admin/', admin.site.urls),
     path('aluno/', include("aluno.urls")),
 ]
